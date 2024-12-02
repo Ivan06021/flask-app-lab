@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -11,7 +11,14 @@ def main():
 @app.route('/homepage')
 def home():
     """View foe the Home page of your website"""
-    return 'This is your Home page'
+    agent = request.user_agent
+    return f'This is your Home page - {agent}'
+
+
+@app.route('/hi/<string:name>/<int:age>')
+def gretting(name, age):
+    name = name.upper()
+    return f'Welcome, {name} - {age}!'
 
 
 if __name__ == '__main__':

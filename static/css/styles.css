@@ -1,0 +1,19 @@
+/* Список навичок */
+.list-inline .badge {
+    font-size: 1rem;
+    margin: 5px;
+    padding: 10px 15px;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: transform 0.3s;
+}
+
+.list-inline .badge:hover {
+    transform: scale(1.1);
+}
+
+section h2 {
+    color: #007bff;
+    text-transform: uppercase;
+    font-weight: bold;
+}

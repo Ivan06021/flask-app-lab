@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block header %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <section id="about" class="py-4">
+        <h2>Про себе</h2>
+        <p>Я — програміст з досвідом у розробці веб-додатків. Моє завдання — створювати ефективні та красиві рішення.
+        </p>
+        <img src="{{ url_for('static', filename='img/profile.png') }}" alt="Моє фото" class="img-thumbnail" width="150">
+    </section>
+
+    <section id="education" class="py-4">
+        <h2>Освіта</h2>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h3>Чортовецький ліцей</h3>
+                <p><strong>Закінчив:</strong> 2020р.</p>
+            </li>
+            <li class="list-group-item">
+                <h3>Прикарпатський національний університет імені Василя Стефаника</h3>
+                <p><strong>Ступінь: </strong> Навчаюсь</p>
+                <p><strong>Спеціальність: </strong>Інженерія програмного забезпечення</p>
+            </li>
+        </ul>
+    </section>
+
+    <section id="skills" class="py-4">
+        <h2>Навички</h2>
+        <ul class="list-inline">
+            <li class="list-inline-item badge bg-primary">Python</li>
+            <li class="list-inline-item badge bg-secondary">Flask</li>
+            <li class="list-inline-item badge bg-success">HTML</li>
+            <li class="list-inline-item badge bg-danger">CSS</li>
+            <li class="list-inline-item badge bg-warning text-dark">JavaScript</li>
+        </ul>
+    </section>
+
+    <section id="projects" class="py-4">
+        <h2>Проекти</h2>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <strong>Сайт портфоліо:</strong> Розробив адаптивний веб-сайт для презентації проєктів.
+            </li>
+            <li class="list-group-item">
+                <strong>Блог на Flask:</strong> Створив багатофункціональний блог із системою коментарів.
+            </li>
+        </ul>
+    </section>
+</div>
+{% endblock %}

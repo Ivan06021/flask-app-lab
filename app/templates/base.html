@@ -10,10 +10,13 @@
 </head>
 
 <body>
-    <header>
-        {% block header %}
-        {% endblock %}
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <h1>Flask Application</h1>
+        </div>
     </header>
+
+    {% block header %}{% endblock %}
     <main>
         <div class="container my-4">
             {% block content %}

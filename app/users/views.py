@@ -1,5 +1,13 @@
 from datetime import timedelta
-from flask import make_response, render_template, request, redirect, url_for
+from flask import (
+    flash,
+    make_response,
+    render_template,
+    request,
+    redirect,
+    session,
+    url_for,
+)
 from . import user_bp
 
 
@@ -15,6 +23,32 @@ def admin():
     to_url = url_for("users.greeting", age=45, name="administrator", external=True)
     print(to_url)
     return redirect(to_url)
+
+
+@user_bp.route("/profile")
+def get_profile():
+    if "username" in session:
+        username = session["username"]
+        return render_template("users/profile.html", username=username)
+    flash("You need to login", "danger")
+    return redirect(url_for("users.login"))
+
+
+@user_bp.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        session["username"] = username
+        flash("Success" "success")
+        return redirect(url_for("users.get_profile"))
+    return render_template("users/login.html")
+
+
+@user_bp.route("/logout")
+def logout():
+    session.pop("username", None)
+    session.pop("age", None)
+    return redirect(url_for("users.get_profile"))
 
 
 @user_bp.route("/set_cookie")

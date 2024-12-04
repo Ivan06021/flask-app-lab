@@ -1,0 +1,19 @@
+[
+    {
+        "author": "Anonymous",
+        "content": "111",
+        "id": 1,
+        "is_active": true,
+        "publish_date": "1111-11-11",
+        "title": "111"
+    },
+    {
+        "author": "Anonymous",
+        "category": "tech",
+        "content": "111111",
+        "id": 2,
+        "is_active": true,
+        "publish_date": "1111-11-11",
+        "title": "1111"
+    }
+]

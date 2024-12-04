@@ -58,8 +58,8 @@ def login():
 @user_bp.route("/logout")
 def logout():
     session.pop("username", None)
-    session.pop("age", None)
-    return redirect(url_for("users.get_profile"))
+    flash("You are successfully logged out", "info")
+    return redirect(url_for("users.login"))
 
 
 @user_bp.route("/set_cookie", methods=["GET", "POST"])

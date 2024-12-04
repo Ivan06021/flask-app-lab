@@ -94,7 +94,7 @@ def delete_cookie():
 
 @user_bp.route("/delete_all_cookies", methods=["GET", "POST"])
 def delete_all_cookies():
-    flash("All cookies are deleted", "info")
+    flash("Всі кукі видалено", "info")
     response = make_response(redirect(url_for("users.get_profile")))
     for key in request.cookies:
         response.set_cookie(key, "", expires=0)

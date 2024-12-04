@@ -16,7 +16,20 @@
         </div>
     </header>
 
-    {% block header %}{% endblock %}
+    {% block header %}
+    {% include 'nav.html' %}
+    {% endblock %}
+
+    {% with msg = get_flashed_messages(with_categories=True) %}
+    {% if msg %}
+    {% for category, message in msg %}
+    <div class="alert alert-{{ category }} alert-dismissible show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <main>
         <div class="container my-4">
             {% block content %}

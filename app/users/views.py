@@ -37,9 +37,19 @@ def get_profile():
 @user_bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
+        correct_username = "admin"
+        correct_password = "admin"
         username = request.form.get("username")
-        session["username"] = username
-        flash("Success" "success")
+        password = request.form.get("password")
+        if username == correct_username and password == correct_password:
+            session["username"] = username
+            flash("You are successfully logged in", "success")
+            return redirect(url_for("users.get_profile"))
+        else:
+            flash("Invalid username or password", "danger")
+            return redirect(url_for("users.login"))
+    if "username" in session:
+        flash("You are already logged in", "info")
         return redirect(url_for("users.get_profile"))
     return render_template("users/login.html")
 

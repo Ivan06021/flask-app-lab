@@ -1,19 +1,29 @@
 [
     {
-        "author": "Anonymous",
-        "content": "111",
+        "author": "admin",
+        "category": "science",
+        "content": "new post content 1",
         "id": 1,
         "is_active": true,
-        "publish_date": "1111-11-11",
-        "title": "111"
+        "publish_date": "2024-12-05",
+        "title": "new post 1"
     },
     {
-        "author": "Anonymous",
-        "category": "tech",
-        "content": "111111",
+        "author": "admin",
+        "category": "lifestyle",
+        "content": "new post content2",
         "id": 2,
         "is_active": true,
-        "publish_date": "1111-11-11",
-        "title": "1111"
+        "publish_date": "2024-12-06",
+        "title": "new post 2"
+    },
+    {
+        "author": "admin",
+        "category": "science",
+        "content": "new post content 3",
+        "id": 3,
+        "is_active": true,
+        "publish_date": "2024-02-14",
+        "title": "new post 3"
     }
 ]

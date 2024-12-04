@@ -21,7 +21,7 @@ def save_posts(posts):
 @post_bp.route("/")
 def get_posts():
     posts = load_posts()
-    return render_template("posts/posts.html", posts=posts)
+    return render_template("posts.html", posts=posts)
 
 
 @post_bp.route("/<int:id>")
@@ -30,7 +30,7 @@ def get_post(id):
     if id > len(posts) or id <= 0:  # Перевіряємо, чи існує пост
         abort(404)
     post = posts[id - 1]
-    return render_template("posts/detail-post.html", post=post)
+    return render_template("detail-post.html", post=post)
 
 
 @post_bp.route("/add_post", methods=["GET", "POST"])
@@ -51,4 +51,4 @@ def add_post():
         save_posts(posts)
         flash("Post added successfully", "success")
         return redirect(url_for("posts.add_post"))
-    return render_template("posts/add_post.html", form=form)
+    return render_template("add_post.html", form=form)

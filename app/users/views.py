@@ -1,4 +1,3 @@
-from datetime import timedelta
 from flask import (
     flash,
     make_response,
@@ -29,7 +28,9 @@ def admin():
 def get_profile():
     if "username" in session:
         username = session["username"]
-        return render_template("users/profile.html", username=username)
+        return render_template(
+            "users/profile.html", username=username, cookies=request.cookies
+        )
     flash("You need to login", "danger")
     return redirect(url_for("users.login"))
 
@@ -61,24 +62,40 @@ def logout():
     return redirect(url_for("users.get_profile"))
 
 
-@user_bp.route("/set_cookie")
+@user_bp.route("/set_cookie", methods=["GET", "POST"])
 def set_cookie():
-    response = make_response("Кука установлена")
-    response.set_cookie(
-        "username", "student", max_age=timedelta(seconds=60).total_seconds()
-    )
-    response.set_cookie("color", "black", max_age=timedelta(seconds=60).total_seconds())
+    key = request.form.get("key")
+    value = request.form.get("value")
+    max_age = request.form.get("max_age", 60, int)
+    if not key or not value or not max_age:
+        flash("Заповніть всі поля", "danger")
+        return redirect(url_for("users.get_profile"))
+    flash(f"Кука {key} зі значенням {value} встановлена", "success")
+
+    response = make_response(redirect(url_for("users.get_profile")))
+    response.set_cookie(key, value, max_age=max_age)
     return response
 
 
-@user_bp.route("/get_cookie")
+@user_bp.route("/get_cookie", methods=["GET", "POST"])
 def get_cookie():
     username = request.cookies.get("username")
     return f"Користувач: {username}"
 
 
-@user_bp.route("/delete_cookie")
+@user_bp.route("/delete_cookie", methods=["GET", "POST"])
 def delete_cookie():
-    response = make_response("Кука видалена")
-    response.set_cookie("username", "", expires=0)
+    key = request.form.get("key")
+    flash(f"Кука {key} видалена", "info")
+    response = make_response(redirect(url_for("users.get_profile")))
+    response.set_cookie(key, "", expires=0)
+    return response
+
+
+@user_bp.route("/delete_all_cookies", methods=["GET", "POST"])
+def delete_all_cookies():
+    flash("All cookies are deleted", "info")
+    response = make_response(redirect(url_for("users.get_profile")))
+    for key in request.cookies:
+        response.set_cookie(key, "", expires=0)
     return response

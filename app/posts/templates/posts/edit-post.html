@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Add Post{% endblock %}
+{% block title %}Edit Post{% endblock %}
 
 {% block content %}
-<h2>Add New Post</h2>
+<h2>Edit Post</h2>
 <form method="POST" action="" novalidate>
     {{ form.hidden_tag() }}
     {% from 'form_macros.html' import render_field %}
@@ -19,7 +19,7 @@
     {{ render_field(form.category) }}
     <br>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Add Post</button>
+        <button type="submit" class="btn btn-primary">Edit Post</button>
     </div>
 </form>
 {% endblock %}

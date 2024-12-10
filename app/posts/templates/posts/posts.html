@@ -17,9 +17,17 @@
                     <h6 class="card-subtitle mb-2 text-muted">Author: {{ post.author }}</h6>
                     <p class="card-text">{{ post.content[:100] }}...</p>
                     <p class="card-text">Category: {{ post.category }}</p>
-                    <p class="card-text">Published: {{ post.publish_date }}</p>
-                    <a href="{{ url_for('posts.get_post', id=post.id) }}"
-                        class="btn btn-sm btn-outline-primary float-end">Read More</a>
+                    <p class="card-text">Published: {{ post.posted }}</p>
+                    <div>
+                        <a href="{{ url_for('posts.get_post', id=post.id) }}"
+                            class="btn btn-sm btn-outline-primary float-end">Read More</a>
+                    </div>
+                    <form action="{{ url_for('.delete_post', id=post.id) }}" method="POST" class="mb-3">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <form action="{{ url_for('.edit_post', id=post.id) }}" method="POST">
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
                 </div>
             </div>
         </div>

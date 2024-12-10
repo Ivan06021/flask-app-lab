@@ -12,10 +12,19 @@
         <img class="img-card" src="{{ url_for('.static', filename='img/logo.png') }}">
         <p>ID: {{ post.id }}</p>
         <p>Category: {{ post.category }}</p>
-        <p>Published: {{ post.publish_date }}</p>
+        <p>Published: {{ post.posted }}</p>
         <p>By: {{ post.author }}</p>
         <p class="mt-4">{{ post.content }}</p>
-        <a href="{{ url_for('posts.get_posts') }}" class="btn btn-secondary mt-3">Back to Posts</a>
+        <form action="{{ url_for('.delete_post', id=post.id) }}" method="POST">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <br>
+        <form action="{{ url_for('.edit_post', id=post.id) }}" method="POST">
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </form>
+        <div>
+            <a href="{{ url_for('posts.get_posts') }}" class="btn btn-secondary mt-3">Back to Posts</a>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -8,6 +8,8 @@ from flask import (
     url_for,
 )
 from . import user_bp
+from app import db
+from .models import User
 
 
 @user_bp.route("/hi/<string:name>")
@@ -19,7 +21,8 @@ def greeting(name):
 
 @user_bp.route("/admin")
 def admin():
-    to_url = url_for("users.greeting", age=45, name="administrator", external=True)
+    to_url = url_for("users.greeting", age=45,
+                     name="administrator", external=True)
     print(to_url)
     return redirect(to_url)
 

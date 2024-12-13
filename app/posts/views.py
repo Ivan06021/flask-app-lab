@@ -1,7 +1,8 @@
-from flask import render_template, redirect, flash, session, url_for
+from flask import render_template, redirect, flash, url_for
 from . import post_bp
 from .forms import PostForm
-from app.posts.models import Post
+from app.posts.models import Post, Tag
+from app.users.models import User
 from app import db
 
 
@@ -20,6 +21,9 @@ def get_post(id):
 @post_bp.route("/add_post", methods=["GET", "POST"])
 def add_post():
     form = PostForm()
+    authors = User.query.all()
+    form.author_id.choices = [(author.id, author.username)
+                              for author in authors]
     if form.validate_on_submit():
         new_post = Post(
             title=form.title.data,
@@ -27,12 +31,14 @@ def add_post():
             posted=form.publish_date.data,
             is_active=form.is_active.data,
             category=form.category.data,
-            author=session.get("username", "Anonymous"),
+            user_id=form.author_id.data,
         )
+        tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
+        new_post.tags.extend(tags)
         db.session.add(new_post)
         db.session.commit()
         flash("Post added successfully", "success")
-        return redirect(url_for("posts.add_post"))
+        return redirect(url_for("posts.get_posts"))
     return render_template("add_post.html", form=form)
 
 
@@ -41,12 +47,19 @@ def edit_post(id):
     post = db.get_or_404(Post, id)
     form = PostForm(obj=post)
     form.publish_date.data = post.posted
+    authors = User.query.all()
+    form.author_id.choices = [(author.id, author.username)
+                              for author in authors]
+    tags = [tag.id for tag in post.tags]
     if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
         post.posted = form.publish_date.data
         post.is_active = form.is_active.data
         post.category = form.category.data
+        post.user_id = form.author_id.data
+        tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
+        post.tags = tags
         db.session.commit()
         flash("Post updated successfully", "success")
         return redirect(url_for(".get_posts"))
